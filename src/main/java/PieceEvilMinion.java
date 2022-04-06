@@ -64,8 +64,8 @@ public class PieceEvilMinion extends PieceMinion{
      */
     @Override
     public PieceEvilMinion spawn() {
-        this.numTimesSpawned++;
         if(canSpawn()) {
+            this.numTimesSpawned++;
             return new PieceEvilMinion(Character.toLowerCase(this.symbol),
                     this.teamColor, 1, 0,
                     0, false, false);
