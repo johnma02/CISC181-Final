@@ -45,7 +45,7 @@ public class GameBoardTest {
                 0,0,false,true);
         testGameBoard.getSquares()[0][0].setPiece(kevin);
         Piece bob = new PieceEvilMinion('E',"Red",1,
-                1,4,false, true);
+                1,1,false, true);
         testGameBoard.getSquares()[numRows-1][numCols-1].setPiece(bob);
         Piece youdee = new PieceBlueHen('H',"Red",3,
                 9,false,true);
@@ -56,6 +56,7 @@ public class GameBoardTest {
         System.out.println(testGameBoard.toString());
 
         // testing random empty space method
+        System.out.println("testing empty space");
         BoardSquare emptySpace = testGameBoard.findRandomEmptySpace();
         assertTrue(emptySpace.isEmpty());
         assertNull(emptySpace.getPiece());
@@ -68,8 +69,10 @@ public class GameBoardTest {
         System.out.println(testGameBoard.toString());
 
         //spawn a Piece and place on the GameBoard
+        System.out.println("Testing other");
         Piece stuart = bob.spawn();
-        assertTrue(stuart instanceof  PieceEvilMinion);
+        assertTrue(stuart instanceof PieceEvilMinion);
+        System.out.println("done");
         testGameBoard.getSquares()[numRows-3][numCols-3].setPiece(stuart);
         System.out.println(testGameBoard.toString());
     }
