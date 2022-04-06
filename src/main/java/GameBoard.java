@@ -1,8 +1,16 @@
 public class GameBoard {
-    private int numRows;
-    private int numColumns;
-    private BoardSquare[][] squares;
+    /**
+     * This class represents the game board where our game will be played. It holds a 2d array of Board Squares
+     * @author Jonathan Ma
+     * @version 1.0
+     */
 
+    //private fields
+    private int numRows; // number of rows in our game board
+    private int numColumns; // num columns in our game board
+    private BoardSquare[][] squares; // the game board
+
+    //constructor, calls setUpEmptyBoard
     public GameBoard(int numRows, int numColumns){
         this.numRows = numRows;
         this.numColumns = numColumns;
@@ -10,6 +18,7 @@ public class GameBoard {
         setUpEmptyBoard();
     }
 
+    //getters
     public int getNumRows() {
         return numRows;
     }
@@ -22,6 +31,12 @@ public class GameBoard {
         return squares;
     }
 
+    /**
+     * checks if a list index is in bounds of the game board
+     * @param row given row index
+     * @param column given column index
+     * @return boolean rep. if this index is in bounds
+     */
     public boolean inBounds(int row, int column){
         boolean notNegative = row >= 0 && column >= 0;
         boolean inBounds = row < this.numRows && column < this.numColumns;
@@ -29,6 +44,11 @@ public class GameBoard {
         return notNegative && inBounds;
     }
 
+    /**
+     * This function sets up the game board.
+     * Using two for loops to iterate through the game board 2d array, each BoardSquare is made empty
+     * Also sets colors to brown and white alternating, like a chess/checker board
+     */
     public void setUpEmptyBoard(){
         int colorSwitch = 0;
         for (int i = 0; i < this.numRows; i++){
@@ -41,6 +61,10 @@ public class GameBoard {
         }
     }
 
+    /**
+     * Finds a empty space on the game board.
+     * @return an empty space on the game board
+     */
     public BoardSquare findRandomEmptySpace(){
         boolean empty = false;
         int row = 0;
@@ -53,6 +77,10 @@ public class GameBoard {
         return this.squares[row][column];
     }
 
+    /**
+     * overrides Object.toString
+     * @return a string representing the game baord
+     */
     public String toString(){
         StringBuilder boardString = new StringBuilder();
         boardString.append("Col :       ");

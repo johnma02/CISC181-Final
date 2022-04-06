@@ -1,8 +1,16 @@
 public class PieceBuzz extends Piece{
+    /**
+     * Piece based on Buzz Lightyear from Toy Story.
+     * @author Jonathan Ma
+     * @version 1.0
+     */
+    //private fields
     private int numAttacks;
     private int numTimesBeenAttacked;
+    //PieceBuzz can only attack if workingLaser is true
     private boolean workingLaser;
 
+    //constructors
     public PieceBuzz(char symbol,
                      String teamColor,
                      int numAttacks,
@@ -22,10 +30,12 @@ public class PieceBuzz extends Piece{
                 true, false, true);
     }
 
+    //getters
     public int getNumAttacks() {return numAttacks;}
     public int getNumTimesBeenAttacked() {return numTimesBeenAttacked;}
     public boolean canAttack(){return workingLaser;}
 
+    //setters
     public void setWorkingLaser(boolean workingLaser) {
         this.workingLaser = workingLaser;
     }
@@ -34,16 +44,27 @@ public class PieceBuzz extends Piece{
         this.numAttacks = numAttacks;
     }
 
+    //updates numTimesBeenAttacked and sets workingLaser to false
     public void updateNumTimesBeenAttacked(){
         this.numTimesBeenAttacked += 1;
         this.workingLaser = false;
     }
 
+    //see Piece.java for formal definition, PieceBuzz prints "To Infinity and Beyond" to console when speak()
+    //is called
     @Override
     public void speak(){
         System.out.println("To Infinity and Beyond!");
     }
 
+    /**
+     * see Piece.java for formal definition
+     * @param fromSquareRow starting row
+     * @param fromSquareCol starting column
+     * @param toSquareRow ending row
+     * @param toSquareCol ending column
+     * @return boolean representing if a move is legal
+     */
     @Override
     public boolean validMovePath(int fromSquareRow, int fromSquareCol,
                                  int toSquareRow, int toSquareCol) {
@@ -51,10 +72,13 @@ public class PieceBuzz extends Piece{
         // each Piece will have a different valid path
         return true;
     }
+
+    //see Piece.java for formal definition, PieceBuzz cannot spawn
     @Override
     public PieceBuzz spawn(){
         return null;
     }
+    //PieceBuzz cannot spawn
     public boolean canSpawn(){
         return false;
     }

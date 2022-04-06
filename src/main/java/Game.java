@@ -1,11 +1,22 @@
 import java.util.Collections;
-
 public class Game {
-    private GameBoard board;
-    private Team team1;
-    private Team team2;
-    private String turn;
+    /**
+     * This class represents our game for CISC-181
+     * @author Jonathan Ma
+     * @version 1.0
+     */
 
+    //private fields
+    private GameBoard board; //game board
+    private Team team1; // teams
+    private Team team2;
+    private String turn; //Represents which teams' turn it is
+
+    /**
+     * initializes the game board for our game. Finds random empty spaces on the game board and inserts each teams' pieces
+     * @param numRows
+     * @param numColumns
+     */
     private void initializeGameBoard(int numRows, int numColumns){
         this.board = new GameBoard(numRows, numColumns);
         for (Piece piece : team1.getTeamPieces()){
@@ -18,6 +29,7 @@ public class Game {
         }
     }
 
+    //constructor, calls initializeGameBoard()
     public Game(int numRows, int numColumns, Team team1, Team team2){
         this.team1 = team1;
         this.team2 = team2;
@@ -27,34 +39,41 @@ public class Game {
         initializeGameBoard(numRows,numColumns);
     }
 
+    //getters
     public GameBoard getGameBoard() {
         return this.board;
     }
 
+    //returns whose turn it is
     public Team getCurrentTeam() {
         return team1.getTeamColor().equals(this.turn) ?
                 team1:
                 team2;
     }
 
+    //returns whose turn it is not
     public Team getOpponentTeam() {
         return team2.getTeamColor().equals(this.turn) ?
                 team1:
                 team2;
     }
 
+    //checks if it is the given teams' turn
     public boolean isTurn(Team team){
         return team.getTeamColor().equals(this.turn);
     }
 
+    // gets our game board
     public BoardSquare[][] getBoardSquares(){
         return board.getSquares();
     }
 
+    //changes turn to whose turn it isn't
     public void changeTurn(){
         this.turn = isTurn(team1) ? team2.getTeamColor() : team1.getTeamColor();
     }
 
+    // overrides Object.toString, returns a string representing the game
     public String toString(){
         StringBuilder retString = new StringBuilder();
         retString.append("Game Board:\n")

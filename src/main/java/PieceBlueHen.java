@@ -1,10 +1,19 @@
 public class PieceBlueHen extends Piece{
+    /**
+     * PieceBlueHen is based on the University of Delaware's mascot.
+     * @author Jonathan Ma
+     * @version 1.0
+     */
+
+    //private fields
     private int numAttacks;
     private int numRecruits;
     private boolean flies;
 
-    final public int MAX_NUM_ATTACKS = 3;
+    //static variable representing the number of times PieceBlueHen can attack
+    public static final int MAX_NUM_ATTACKS = 3;
 
+    //constructors
     public PieceBlueHen(char symbol,
                          String teamColor,
                          int numAttacks, int numRecruits,
@@ -21,6 +30,7 @@ public class PieceBlueHen extends Piece{
                 false,true);
     }
 
+    //getters
     public int getNumAttacks()    {
         return this.numAttacks;
     }
@@ -32,6 +42,7 @@ public class PieceBlueHen extends Piece{
         return this.flies;
     }
 
+    //setters
     public void setNumAttacks(int numAttacks)    {
         this.numAttacks = numAttacks;
         updateFly();
@@ -40,20 +51,27 @@ public class PieceBlueHen extends Piece{
         this.numRecruits = numRecruits;
     }
 
+
+     // checks if PieceBlueHen has attacked MAX_NUM_ATTACKS times, and updates flies accordingly
+    //PieceBlueHen can only fly if it hasn't exceeded MAX_NUM_ATTACKS
     private void updateFly()    {
-        if (this.numAttacks < MAX_NUM_ATTACKS){
-            this.flies = true;
-        }
-        else {
-            this.flies = false;
-        }
+        this.flies = this.numAttacks < MAX_NUM_ATTACKS;
     }
 
+    //see Piece.java for formal definition, PieceBlueHen prints "Go UD!" to console when speak() is called.
     @Override
     public void speak(){
         System.out.println("Go UD!");
     }
 
+    /**
+     * see piece.java for formal definition
+     * @param fromSquareRow starting row
+     * @param fromSquareCol starting column
+     * @param toSquareRow ending row
+     * @param toSquareCol ending column
+     * @return boolean representing whether move is legal
+     */
     @Override
     public boolean validMovePath(int fromSquareRow, int fromSquareCol,
                                  int toSquareRow, int toSquareCol) {
@@ -62,6 +80,11 @@ public class PieceBlueHen extends Piece{
         return true;
     }
 
+    /**
+     * see Piece.java for formal definition, PieceBlueHen makes a new PieceBlueHen named copyHen with lowercased symbol of its
+     * original PieceBlueHen, same teamColor, same numAttacks, same numRecruits, and hidden=false, original=false
+     * @return
+     */
     @Override
     public PieceBlueHen spawn()    {
         PieceBlueHen copyHen =
@@ -71,6 +94,7 @@ public class PieceBlueHen extends Piece{
         return copyHen;
     }
 
+    //PieceBlueHen can always spawn
     public boolean canSpawn(){
         return true;
     }

@@ -1,14 +1,22 @@
 public class BoardSquare {
-    private boolean isEmpty;
-    private Piece piece;
-    private String squareColor;
-    
+    /**
+     * This class represents a square on our board. BoardSquares hold instances of Piece
+     * @author Jonathan Ma
+     * @version 1.0
+     */
+    //private fields
+    private boolean isEmpty; // represents if this BoardSquare is not holding a Piece
+    private Piece piece; // Piece this BoardSquare holds
+    private String squareColor; // Color of this BoardSquare
+
+    //constructors
     public BoardSquare(String squareColor){
         this.squareColor = squareColor;
         this.isEmpty = true;
         this.piece = null;
     }
 
+    //getters
     public boolean isEmpty() {
         return isEmpty;
     }
@@ -21,11 +29,16 @@ public class BoardSquare {
         return squareColor;
     }
 
+    //setters -- also sets isEmpty to false
     public void setPiece(Piece piece) {
         this.piece = piece;
         this.isEmpty = false;
     }
 
+    /**
+     * Returns the Piece in this BoardSquare, also removes it from this BoardSquare, and sets isEmpty to true
+     * @return Piece in this BoardSquare
+     */
     public Piece removePiece(){
         Piece temp = this.piece;
         this.piece = null;
@@ -33,6 +46,10 @@ public class BoardSquare {
         return temp;
     }
 
+    /**
+     * Overrides Object.toString()
+     * @return string representing this BoardSquare's piece's toString value.
+     */
     @Override
     public String toString(){
         return !isEmpty() ? "-"+this.piece.toString()+"-" : "-------";
