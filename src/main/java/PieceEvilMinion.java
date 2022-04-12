@@ -34,6 +34,9 @@ public class PieceEvilMinion extends PieceMinion{
     public void setNumAttacks(int numAttacks) {
         this.numAttacks = numAttacks;
     }
+    public void setNumTimesSpawned(int numTimesSpawned) {
+        this.numTimesSpawned = numTimesSpawned;
+    }
 
     /**
      * Checks if this PieceEvilMinion can attack, a PieceEvilMinion can only attack if it is hungry
