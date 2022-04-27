@@ -1,16 +1,22 @@
 import java.util.Collections;
-public class Game {
+public abstract class Game{
     /**
      * This class represents our game for CISC-181
      * @author Jonathan Ma
      * @version 1.0
      */
 
-    //private fields
-    private GameBoard board; //game board
-    private Team team1; // teams
-    private Team team2;
-    private String turn; //Represents which teams' turn it is
+    //protected fields
+    protected GameBoard board; //game board
+    protected Team team1; // teams
+    protected Team team2;
+    protected String turn; //Represents which teams' turn it is
+
+    //abstract methods
+
+    public abstract boolean isAWinner();
+    public abstract Team getWinner();
+    public abstract boolean isGameEnded();
 
     /**
      * initializes the game board for our game. Finds random empty spaces on the game board and inserts each teams' pieces

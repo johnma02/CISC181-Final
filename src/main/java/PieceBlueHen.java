@@ -1,4 +1,4 @@
-public class PieceBlueHen extends Piece{
+public class PieceBlueHen extends Piece implements Attacker, Recruiter{
     /**
      * PieceBlueHen is based on the University of Delaware's mascot.
      * @author Jonathan Ma
@@ -47,12 +47,23 @@ public class PieceBlueHen extends Piece{
         this.numAttacks = numAttacks;
         updateFly();
     }
+
+    @Override
+    public boolean validAttackPath(int row1, int column1, int row2, int column2) {
+        return true;
+    }
+
     public void setNumRecruits(int numRecruits)    {
         this.numRecruits = numRecruits;
     }
 
+    @Override
+    public boolean validRecruitPath(int row1, int row2, int column1, int column2) {
+        return true;
+    }
 
-     // checks if PieceBlueHen has attacked MAX_NUM_ATTACKS times, and updates flies accordingly
+
+    // checks if PieceBlueHen has attacked MAX_NUM_ATTACKS times, and updates flies accordingly
     //PieceBlueHen can only fly if it hasn't exceeded MAX_NUM_ATTACKS
     private void updateFly()    {
         this.flies = this.numAttacks < MAX_NUM_ATTACKS;

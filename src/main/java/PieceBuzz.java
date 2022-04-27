@@ -1,4 +1,4 @@
-public class PieceBuzz extends Piece{
+public class PieceBuzz extends Piece implements Attacker{
     /**
      * Piece based on Buzz Lightyear from Toy Story.
      * @author Jonathan Ma
@@ -42,6 +42,11 @@ public class PieceBuzz extends Piece{
 
     public void setNumAttacks(int numAttacks)  {
         this.numAttacks = numAttacks;
+    }
+
+    @Override
+    public boolean validAttackPath(int row1, int column1, int row2, int column2) {
+        return true;
     }
 
     //updates numTimesBeenAttacked and sets workingLaser to false

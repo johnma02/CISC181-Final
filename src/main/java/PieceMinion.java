@@ -1,4 +1,4 @@
-public class PieceMinion extends Piece{
+public class PieceMinion extends Piece implements Recruiter{
     /**
      * Piece based on a minion from Despicable Me
      * @author Jonathan Ma
@@ -31,6 +31,11 @@ public class PieceMinion extends Piece{
     //setters
     public void setNumRecruits(int numRecruits) {
         this.numRecruits = numRecruits;
+    }
+
+    @Override
+    public boolean validRecruitPath(int row1, int row2, int column1, int column2) {
+        return true;
     }
 
     //see Piece.java for formal definition: an instance of PieceMinion will print "Bello!" to console when speak() is called

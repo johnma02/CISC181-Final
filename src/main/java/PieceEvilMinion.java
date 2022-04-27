@@ -1,4 +1,4 @@
-public class PieceEvilMinion extends PieceMinion{
+public class PieceEvilMinion extends PieceMinion implements Attacker, Recruiter{
     /**
      * Piece based on a minion from Despicable Me, this is an evil version of PieceMinion, and as such
      * inherits from PieceMinion
@@ -34,6 +34,12 @@ public class PieceEvilMinion extends PieceMinion{
     public void setNumAttacks(int numAttacks) {
         this.numAttacks = numAttacks;
     }
+
+    @Override
+    public boolean validAttackPath(int row1, int column1, int row2, int column2) {
+        return true;
+    }
+
     public void setNumTimesSpawned(int numTimesSpawned) {
         this.numTimesSpawned = numTimesSpawned;
     }
