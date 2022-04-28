@@ -107,7 +107,7 @@ public class PieceBlueHen extends Piece implements Attacker, Recruiter, Spawner{
 
     //PieceBlueHen can always spawn
     public boolean canSpawn(){
-        return true;
+        return this.original;
     }
 
     @Override

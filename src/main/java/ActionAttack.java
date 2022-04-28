@@ -8,7 +8,10 @@ public class ActionAttack extends Action{
         if(game.getBoardSquares()[row1][column1].getPiece() instanceof PieceEvilMinion
         && game.getBoardSquares()[row2][column2].getPiece().getTeamColor().equals(game.getCurrentTeam().getTeamColor())
         && game.getBoardSquares()[row2][column2].getPiece() instanceof PieceMinion){
-            PieceEvilMinion spawnedEvilMinion = ((PieceEvilMinion) game.getBoardSquares()[row1][column1].getPiece()).spawn();
+            PieceEvilMinion spawnedEvilMinion = new PieceEvilMinion(
+                    Character.toLowerCase(game.getBoardSquares()[row1][column1].getPiece().getSymbol()),
+                    game.getCurrentTeam().getTeamColor(), 1, 0,
+                    0, false, false);
             game.getCurrentTeam().addPieceToTeam(spawnedEvilMinion);
             game.getBoardSquares()[row1][column1].getPiece().speak();
             game.getCurrentTeam().removePieceFromTeam(game.getBoardSquares()[row2][column2].getPiece());

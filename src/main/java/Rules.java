@@ -72,7 +72,8 @@ public class Rules {
             }
             else if (initial instanceof PieceEvilMinion) {
                 validAttack = ((PieceEvilMinion) initial).canAttack() &&
-                        ((PieceEvilMinion) initial).validAttackPath(row1, column1, row2, column2);
+                        ((PieceEvilMinion) initial).validAttackPath(row1, column1, row2, column2) &&
+                        nextPiece instanceof PieceMinion;
             }
             else if(initial instanceof PieceBlueHen){
                 validAttack = isEnemy && ((PieceBlueHen) initial).validAttackPath(row1, column1, row2, column2);

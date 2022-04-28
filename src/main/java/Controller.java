@@ -10,20 +10,26 @@ public class Controller {
         textView.updateView(this.game);
     }
 
-    public void playGame(){
+    public void playGame() {
         textView.getNextPlayersAction(this.game);
-        if(!Rules.checkValidAction(game, textView.getRow1(), textView.getColumn1(),
-                textView.getRow2(), textView.getColumn2(), textView.getAction()))
-        {
+        if (!Rules.checkValidAction(game, textView.getRow1(), textView.getColumn1(),
+                textView.getRow2(), textView.getColumn2(), textView.getAction())) {
             System.out.println("Invalid Move!");
+            textView.updateView(this.game);
             playGame();
-        }
-        else{
+        } else {
             carryOutAction(textView.getRow1(), textView.getColumn1(), textView.getRow2(), textView.getColumn2(), textView.getAction());
         }
         textView.updateView(this.game);
-        if(!game.isAWinner()){playGame();}
-        else{textView.printEndOfGameMessage(this.game);}
+        if (!game.isGameEnded()) {
+            playGame();
+        } else {
+            if (game.isAWinner()) {
+                textView.printEndOfGameMessage(this.game);
+            } else {
+                System.out.println("It's a tie! The game is over, and there is no winner");
+            }
+        }
     }
 
     public void carryOutAction(int row1, int column1, int row2, int column2, char action){
