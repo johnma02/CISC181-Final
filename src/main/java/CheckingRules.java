@@ -52,9 +52,72 @@ public class CheckingRules {
         System.out.println(game);
 
         // Test some moves that should be valid
+        System.out.println("VALID");
+        System.out.println(Rules.checkValidAction(game,
+                0,3,
+                2,2,'R'));
+        System.out.println(Rules.checkValidAction(game,
+                0,3,
+                1,4,'M'));
 
+        System.out.println(Rules.checkValidAction(game,
+                0,2,
+                2,2,'A'));
+        System.out.println(Rules.checkValidAction(game,
+                0,3,
+                0,2,'A'));
         // Test some moves that are invalid
+        System.out.println("INVALID");
+        System.out.println(Rules.checkValidAction(game,
+                0,3,
+                1,4,'S'));
+        System.out.println(Rules.checkValidAction(game,
+                0,1,
+                2,1,'R'));
+        System.out.println(Rules.checkValidAction(game,
+                0,3,
+                0,2,'R'));
+        System.out.println(Rules.checkValidAction(game,
+                0,3,
+                2,2,'S'));
+        System.out.println(Rules.checkValidAction(game,
+                0,3,
+                0,2,'M'));
+        System.out.println(Rules.checkValidAction(game,
+                2,3,
+                1,4,'M'));
+        System.out.println(Rules.checkValidAction(game,
+                0,4,
+                2,0,'A'));
+        System.out.println(Rules.checkValidAction(game,
+                0,0,
+                0,2,'A'));
+        System.out.println(Rules.checkValidAction(game,
+                0,0,
+                0,2,'R'));
+        System.out.println(Rules.checkValidAction(game,
+                0,0,
+                0,2,'S'));
+        System.out.println(Rules.checkValidAction(game,
+                0,0,
+                2,0,'A'));
 
+        System.out.println(Rules.checkValidAction(game,
+                0,100,
+                1,4,'M'));
+
+        System.out.println(Rules.checkValidAction(game,
+                -1,3,
+                1,4,'M'));
+
+        System.out.println(Rules.checkValidAction(game,
+                0,3,
+                -1,4,'M'));
+
+        System.out.println(Rules.checkValidAction(game,
+                2000,3,
+                1,2000,'M'));
+        System.out.println("BASE CASES: TFFT");
         // This should be a valid move
         System.out.println(Rules.checkValidAction(game,
                 0,0,

@@ -51,7 +51,7 @@ public class PieceBuzz extends Piece implements Attacker{
 
     //updates numTimesBeenAttacked and sets workingLaser to false
     public void updateNumTimesBeenAttacked(){
-        this.numTimesBeenAttacked += 1;
+        this.numTimesBeenAttacked++;
         this.workingLaser = false;
     }
 

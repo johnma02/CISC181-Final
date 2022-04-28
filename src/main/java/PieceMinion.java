@@ -1,4 +1,4 @@
-public class PieceMinion extends Piece implements Recruiter{
+public class PieceMinion extends Piece implements Recruiter, Spawner{
     /**
      * Piece based on a minion from Despicable Me
      * @author Jonathan Ma
@@ -82,4 +82,8 @@ public class PieceMinion extends Piece implements Recruiter{
         return original && numTimesSpawned < MAX_NUM_SPAWNED;
     }
 
+    @Override
+    public boolean validSpawnPath(int row1, int column1, int row2, int column2) {
+        return true;
+    }
 }

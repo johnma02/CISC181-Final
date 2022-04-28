@@ -1,4 +1,4 @@
-public class PieceEvilMinion extends PieceMinion implements Attacker, Recruiter{
+public class PieceEvilMinion extends PieceMinion implements Attacker, Recruiter, Spawner{
     /**
      * Piece based on a minion from Despicable Me, this is an evil version of PieceMinion, and as such
      * inherits from PieceMinion

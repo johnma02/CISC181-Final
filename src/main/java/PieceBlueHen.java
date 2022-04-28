@@ -1,4 +1,4 @@
-public class PieceBlueHen extends Piece implements Attacker, Recruiter{
+public class PieceBlueHen extends Piece implements Attacker, Recruiter, Spawner{
     /**
      * PieceBlueHen is based on the University of Delaware's mascot.
      * @author Jonathan Ma
@@ -107,6 +107,11 @@ public class PieceBlueHen extends Piece implements Attacker, Recruiter{
 
     //PieceBlueHen can always spawn
     public boolean canSpawn(){
+        return true;
+    }
+
+    @Override
+    public boolean validSpawnPath(int row1, int column1, int row2, int column2) {
         return true;
     }
 }

@@ -4,6 +4,9 @@ public class Rules {
         Piece nextPiece = null;
         boolean nextEmpty;
         boolean isEnemy = false;
+
+        //check if initial is in bounds && if next is in bounds
+        if(!game.getGameBoard().inBounds(row1, column1) || !game.getGameBoard().inBounds(row2, column2)){return false;}
         //check if initial is empty
         if(!game.getBoardSquares()[row1][column1].isEmpty()){
             initial = game.getBoardSquares()[row1][column1].getPiece();
@@ -23,9 +26,13 @@ public class Rules {
             isEnemy = nextPiece.getTeamColor().equals(game.getOpponentTeam().getTeamColor());
         }
 
-        //only needs empty next, by now, we have returned other conditions are unsatisfied
         if(action == 'M'){
-            return nextEmpty;
+            if(!nextEmpty){return false;}
+            boolean validMove = false;
+            if(initial instanceof PieceMinion){validMove = ((PieceMinion) initial).validMovePath(row1, column1, row2, column2);}
+            else if(initial instanceof PieceBlueHen){validMove = ((PieceBlueHen) initial).validMovePath(row1, column1, row2, column2);}
+            else if(initial instanceof PieceBuzz){validMove = ((PieceBuzz) initial).validMovePath(row1, column1, row2, column2);}
+            return validMove;
         }
         else if(action == 'S') {
             boolean validSpawn = false;
@@ -33,10 +40,12 @@ public class Rules {
             if (!nextEmpty) {return false;}
             //check for down casting
             if (initial instanceof PieceMinion) { //PieceEvilMinion extends from PieceMinion, thus we do not need to check for PieceEvilMinion
-                validSpawn = ((PieceMinion) initial).canSpawn();
+                validSpawn = ((PieceMinion) initial).canSpawn() &&
+                        ((PieceMinion) initial).validSpawnPath(row1, column1, row2, column2);
             }
             else if (initial instanceof PieceBlueHen) {
-                validSpawn = ((PieceBlueHen) initial).canSpawn();
+                validSpawn = ((PieceBlueHen) initial).canSpawn() &&
+                        ((PieceBlueHen) initial).validSpawnPath(row1, column1, row2, column2);
             }
             return validSpawn;
         }
@@ -45,21 +54,26 @@ public class Rules {
             //cannot recruit ally
             if(!isEnemy){return false;}
             //check for down casting -- Only PieceBuzz cannot recruit
-            if(!(initial instanceof PieceBuzz)){
-                validRecruit = true;
+            if(initial instanceof PieceMinion){
+                validRecruit = ((PieceMinion) initial).validRecruitPath(row1, column1, row2, column2);
+            }
+            else if (initial instanceof PieceBlueHen){
+                validRecruit = ((PieceBlueHen) initial).validRecruitPath(row1, column1, row2, column2);
             }
             return validRecruit;
         }
         else if(action == 'A'){
             boolean validAttack = false;
             if(initial instanceof PieceBuzz){
-                validAttack = ((PieceBuzz) initial).canAttack() && isEnemy;
+                validAttack = ((PieceBuzz) initial).canAttack() && isEnemy &&
+                        ((PieceBuzz) initial).validAttackPath(row1, column1, row2, column2);
             }
             else if (initial instanceof PieceEvilMinion) {
-                validAttack = ((PieceEvilMinion) initial).canAttack();
+                validAttack = ((PieceEvilMinion) initial).canAttack() &&
+                        ((PieceEvilMinion) initial).validAttackPath(row1, column1, row2, column2);
             }
             else if(initial instanceof PieceBlueHen){
-                validAttack = isEnemy;
+                validAttack = isEnemy && ((PieceBlueHen) initial).validAttackPath(row1, column1, row2, column2);
             }
             return validAttack;
         }
