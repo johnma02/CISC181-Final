@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 public class Rules {
     public static boolean checkValidAction(GameS22 game, int row1, int column1, int row2, int column2, char action){
         Piece initial;

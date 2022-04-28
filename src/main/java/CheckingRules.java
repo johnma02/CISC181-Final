@@ -53,6 +53,22 @@ public class CheckingRules {
 
         // Test some moves that should be valid
         System.out.println("VALID");
+
+        System.out.println(Rules.checkValidAction(game,
+                0,3,
+                0,4,'M'));
+        System.out.println(Rules.checkValidAction(game,
+                0,0,
+                0,5,'M'));
+        System.out.println(Rules.checkValidAction(game,
+                0,2,
+                0,4,'S'));
+        System.out.println(Rules.checkValidAction(game,
+                0,2,
+                2,2,'A'));
+        System.out.println(Rules.checkValidAction(game,
+                0,3,
+                2,0,'A'));
         System.out.println(Rules.checkValidAction(game,
                 0,3,
                 2,2,'R'));
