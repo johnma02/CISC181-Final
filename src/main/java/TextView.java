@@ -46,64 +46,39 @@ public class TextView {
         }
         return Character.toUpperCase(tempMove);
     }
-
-    private static boolean isNumeric(String str){
-        return str != null && str.matches("[0-9.]+");
-    }
-    public static ArrayList<Integer> getValidInt(int a, int b, Scanner scnr) {
-        ArrayList<Integer> outputs = new ArrayList<Integer>();
-        boolean invalid = true;
-        while (invalid) {
-            boolean notNumeric = false;
-            String input = null;
-            outputs.clear();
-            if(scnr.hasNext()) {
-                input = scnr.nextLine();
+    public static int getValidInt(int a, int b,Scanner scnr){
+        int userInput = a-1;
+        int count = 0;
+        while(userInput < a || userInput > b){
+           if(scnr.hasNextInt()) {
+                userInput = scnr.nextInt();
             }
-            String[] inputs = input.split(" ");
-            if (inputs.length != 2) {
-                System.out.print("Invalid entries -- LessPlease enter two integers within range "+a+"-"+b);
-                continue;
+            else {
+                scnr.next();
             }
-            for (String i : inputs) {
-                if (isNumeric(i)) {
-                    outputs.add(Integer.parseInt(i));
-                } else {
-                    System.out.print("Invalid entries -- Negative or Non numeric input -- Please enter two integers within range "+a+"-"+b);
-                    notNumeric = true;
-                    break;
+            if(userInput < a || userInput > b){
+                count++;
+                if(count == 2){
+                    System.out.print("Please enter an integer between "+a+" and "+b+": ");
+                    count = 0;
                 }
             }
-            if(notNumeric){ notNumeric = false; continue;}
-            int count = 0;
-            for (Integer in : outputs) {
-                if (in >= a && in <= b) {
-                    count++;
-                }
-            }
-            if(count == outputs.size()){invalid = false;}
-            else{System.out.print("Invalid entries: Please enter two integers within range "+a+"-"+b);}
         }
-        return outputs;
+        return userInput;
     }
 
-    public void getNextPlayersAction(GameS22 game) {
+    public void getNextPlayersAction(GameS22 game){
         Scanner scnr = new Scanner(System.in);
         this.action = getUsersNextActionType(scnr);
-        System.out.print("\nEnter two integers between " + 0 + " and " + game.getGameBoard().getNumColumns() +
+        System.out.print("\nEnter two values between "+0+" and "+game.getGameBoard().getNumColumns()+
                 " (Rows, Columns): ");
+        this.row1 = getValidInt(0,game.getGameBoard().getNumRows() , scnr);
+        this.column1 = getValidInt(0, game.getGameBoard().getNumRows(), scnr);
 
-        ArrayList<Integer> position1 = getValidInt(0, game.board.getNumColumns(), scnr);
-        this.row1 = position1.get(0);
-        this.column1 = position1.get(1);
-
-        System.out.print("\nEnter two integers between " + 0 + " and " + game.getGameBoard().getNumColumns() +
+        System.out.print("\nEnter two values between "+0+" and "+game.getGameBoard().getNumColumns()+
                 " (Rows, Columns): ");
-
-        ArrayList<Integer> position2 = getValidInt(0, game.board.getNumColumns(), scnr);
-        this.row2 = position2.get(0);
-        this.column2 = position2.get(1);
-
+        this.row2 = getValidInt(0, game.getGameBoard().getNumRows(), scnr);
+        this.column2 = getValidInt(0, game.getGameBoard().getNumRows(), scnr);
     }
     public void updateView(GameS22 game){
         System.out.println(game);
