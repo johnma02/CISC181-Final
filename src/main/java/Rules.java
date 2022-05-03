@@ -71,9 +71,15 @@ public class Rules {
                         ((PieceBuzz) initial).validAttackPath(row1, column1, row2, column2);
             }
             else if (initial instanceof PieceEvilMinion) {
-                validAttack = ((PieceEvilMinion) initial).canAttack() &&
-                        ((PieceEvilMinion) initial).validAttackPath(row1, column1, row2, column2) &&
-                        nextPiece instanceof PieceMinion;
+                if(nextEmpty){validAttack = false;}
+                else if(nextPiece.getTeamColor().equals(game.getCurrentTeam().getTeamColor()) && nextPiece instanceof PieceMinion){
+                    validAttack = ((PieceEvilMinion) initial).canAttack() &&
+                            ((PieceEvilMinion) initial).validAttackPath(row1, column1, row2, column2);
+                }
+                else{
+                    validAttack = ((PieceEvilMinion) initial).canAttack() && isEnemy &&
+                            ((PieceEvilMinion) initial).validAttackPath(row1, column1, row2, column2);
+                }
             }
             else if(initial instanceof PieceBlueHen){
                 validAttack = isEnemy && ((PieceBlueHen) initial).validAttackPath(row1, column1, row2, column2);
