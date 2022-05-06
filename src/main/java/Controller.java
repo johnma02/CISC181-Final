@@ -1,7 +1,11 @@
 import java.util.ArrayList;
-
+/**
+ * This class controls our game flow.
+ * @author Jonathan Ma
+ * @version 1.0
+ */
 public class Controller {
-    private GameS22 game;
+    private GameS22 game; //controller has a game and a text view for gui
     private TextView textView;
 
     public Controller(){
@@ -11,24 +15,21 @@ public class Controller {
     }
 
     public void playGame() {
-        textView.getNextPlayersAction(this.game);
-        if (!Rules.checkValidAction(game, textView.getRow1(), textView.getColumn1(),
-                textView.getRow2(), textView.getColumn2(), textView.getAction())) {
-            System.out.println("Invalid Move!");
-            textView.updateView(this.game);
-            playGame();
-        } else {
-            carryOutAction(textView.getRow1(), textView.getColumn1(), textView.getRow2(), textView.getColumn2(), textView.getAction());
-        }
-        textView.updateView(this.game);
-        if (!game.isGameEnded()) {
-            playGame();
-        } else {
-            if (game.isAWinner()) {
-                textView.printEndOfGameMessage(this.game);
+        while(!game.isGameEnded()) {
+            textView.getNextPlayersAction(this.game); //get action
+            if (!Rules.checkValidAction(game, textView.getRow1(), textView.getColumn1(),
+                    textView.getRow2(), textView.getColumn2(), textView.getAction())) { //check validity
+                System.out.println("Invalid Move!");
+                textView.updateView(this.game); //give player a new view before retrieving another move
             } else {
-                System.out.println("It's a tie! The game is over, and there is no winner");
+                carryOutAction(textView.getRow1(), textView.getColumn1(), textView.getRow2(), textView.getColumn2(), textView.getAction());
+                textView.updateView(this.game);
+                }
             }
+        if (game.isAWinner()) {
+            textView.printEndOfGameMessage(this.game); //prints winner
+        } else {
+            System.out.println("It's a tie! The game is over, and there is no winner"); //no winner ? its a tie
         }
     }
 

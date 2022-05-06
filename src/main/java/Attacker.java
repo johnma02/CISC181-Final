@@ -1,4 +1,9 @@
 public interface Attacker {
+    /**
+     * All attackers will extend from this interface
+     * @author Suhas Bolledula
+     * @version 1.0
+     */
     public abstract int getNumAttacks();
     public abstract void setNumAttacks(int numAttacks);
 

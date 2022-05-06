@@ -1,13 +1,16 @@
-import org.jetbrains.annotations.NotNull;
-
 public class Rules {
+    /**
+     * The rules for our game
+     * @author Suhas Bolledula
+     * @version 1.0
+     */
     public static boolean checkValidAction(GameS22 game, int row1, int column1, int row2, int column2, char action){
         Piece initial;
         Piece nextPiece = null;
         boolean nextEmpty;
         boolean isEnemy = false;
 
-        //check if initial is in bounds && if next is in bounds
+        //check if initial is in bounds && if next is in bounds -- Should be handled in TextView, but just makes sure twice
         if(!game.getGameBoard().inBounds(row1, column1) || !game.getGameBoard().inBounds(row2, column2)){return false;}
         //check if initial is empty
         if(!game.getBoardSquares()[row1][column1].isEmpty()){
@@ -29,8 +32,8 @@ public class Rules {
         }
 
         if(action == 'M'){
-            if(!nextEmpty){return false;}
-            boolean validMove = false;
+            if(!nextEmpty){return false;} //cannot move to filled spot
+            boolean validMove = false; //Now we make sure that each piece has a valid move path
             if(initial instanceof PieceMinion){validMove = ((PieceMinion) initial).validMovePath(row1, column1, row2, column2);}
             else if(initial instanceof PieceBlueHen){validMove = ((PieceBlueHen) initial).validMovePath(row1, column1, row2, column2);}
             else if(initial instanceof PieceBuzz){validMove = ((PieceBuzz) initial).validMovePath(row1, column1, row2, column2);}
@@ -40,7 +43,7 @@ public class Rules {
             boolean validSpawn = false;
             //next cannot be occupied
             if (!nextEmpty) {return false;}
-            //check for down casting
+            //down cast
             if (initial instanceof PieceMinion) { //PieceEvilMinion extends from PieceMinion, thus we do not need to check for PieceEvilMinion
                 validSpawn = ((PieceMinion) initial).canSpawn() &&
                         ((PieceMinion) initial).validSpawnPath(row1, column1, row2, column2);
@@ -53,9 +56,9 @@ public class Rules {
         }
         else if(action == 'R'){
             boolean validRecruit = false;
-            //cannot recruit ally
+            //cannot recruit ally -- also checks if next is empty.
             if(!isEnemy){return false;}
-            //check for down casting -- Only PieceBuzz cannot recruit
+            //down casting -- Only PieceBuzz cannot recruit
             if(initial instanceof PieceMinion){
                 validRecruit = ((PieceMinion) initial).validRecruitPath(row1, column1, row2, column2);
             }
@@ -65,6 +68,7 @@ public class Rules {
             return validRecruit;
         }
         else if(action == 'A'){
+            //We DO NOT check for enemy, because certain pieces can attack allies
             boolean validAttack = false;
             if(initial instanceof PieceBuzz){
                 validAttack = ((PieceBuzz) initial).canAttack() && isEnemy &&
@@ -72,7 +76,9 @@ public class Rules {
             }
             else if (initial instanceof PieceEvilMinion) {
                 if(nextEmpty){validAttack = false;}
-                else if(nextPiece.getTeamColor().equals(game.getCurrentTeam().getTeamColor()) && nextPiece instanceof PieceMinion){
+                //Needed to ensure that ONLY PieceEvilMinion can attack an allied PieceMinion and ONLY PieceMinion
+                else if(nextPiece.getTeamColor().equals(game.getCurrentTeam().getTeamColor()) && nextPiece instanceof PieceMinion
+                && !(nextPiece instanceof PieceEvilMinion) ){
                     validAttack = ((PieceEvilMinion) initial).canAttack() &&
                             ((PieceEvilMinion) initial).validAttackPath(row1, column1, row2, column2);
                 }

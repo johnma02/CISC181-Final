@@ -1,7 +1,10 @@
-import java.util.ArrayList;
 import java.util.Scanner;
-
 public class TextView {
+    /**
+     * Creates a GUI for the user
+     * @author Jonathan Ma
+     * @version 1.0
+     */
     private int row1;
     private int column1;
     private int row2;
@@ -43,9 +46,11 @@ public class TextView {
             System.out.print("Enter your next move: \nA[Attack]\nM[Move]\nR[Recruit]\nS[Spawn]\n");
             tempMove = scnr.next().toUpperCase().charAt(0);
             pMove = "" + tempMove;
+            if(!moveList.contains((pMove))){System.out.print("Invalid move -- ");}
         }
         return Character.toUpperCase(tempMove);
     }
+
     public static int getValidInt(int a, int b,Scanner scnr){
         int userInput = a-1;
         int count = 0;
@@ -56,30 +61,28 @@ public class TextView {
             else {
                 scnr.next();
             }
-            if(userInput < a || userInput > b){
-                count++;
-                if(count == 2){
-                    System.out.print("Please enter an integer between "+a+" and "+b+": ");
-                    count = 0;
-                }
-            }
+            if(userInput < a || userInput > b){System.out.print("\nEnter only values in range 0-"+b+": ");}
         }
         return userInput;
     }
 
+    //prompts user to enter move.
     public void getNextPlayersAction(GameS22 game){
         Scanner scnr = new Scanner(System.in);
-        this.action = getUsersNextActionType(scnr);
-        System.out.print("\nEnter two values between "+0+" and "+game.getGameBoard().getNumColumns()+
-                " (Rows, Columns): ");
-        this.row1 = getValidInt(0,game.getGameBoard().getNumRows() , scnr);
-        this.column1 = getValidInt(0, game.getGameBoard().getNumRows(), scnr);
+        this.action = getUsersNextActionType(scnr); //grab turn action
 
-        System.out.print("\nEnter two values between "+0+" and "+game.getGameBoard().getNumColumns()+
-                " (Rows, Columns): ");
+        System.out.print("\nEnter first row value between "+0+" and "+game.getGameBoard().getNumColumns()+": ");
+        this.row1 = getValidInt(0,game.getGameBoard().getNumRows() , scnr);
+        System.out.print("\nEnter first column value between "+0+" and "+game.getGameBoard().getNumColumns()+": ");
+        this.column1 = getValidInt(0, game.getGameBoard().getNumColumns(), scnr);
+
+        System.out.print("\nEnter second row value between "+0+" and "+game.getGameBoard().getNumColumns()+": ");
         this.row2 = getValidInt(0, game.getGameBoard().getNumRows(), scnr);
-        this.column2 = getValidInt(0, game.getGameBoard().getNumRows(), scnr);
+        System.out.print("\nEnter second column value between "+0+" and "+game.getGameBoard().getNumColumns()+": ");
+        this.column2 = getValidInt(0, game.getGameBoard().getNumColumns(), scnr);
     }
+
+
     public void updateView(GameS22 game){
         System.out.println(game);
     }
