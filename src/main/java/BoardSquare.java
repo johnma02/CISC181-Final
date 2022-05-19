@@ -8,15 +8,25 @@ public class BoardSquare {
     private boolean isEmpty; // represents if this BoardSquare is not holding a Piece
     private Piece piece; // Piece this BoardSquare holds
     private String squareColor; // Color of this BoardSquare
-
+    //Board Square Modification
+    private boolean landMine;
+    private boolean revealed;
     //constructors
     public BoardSquare(String squareColor){
         this.squareColor = squareColor;
         this.isEmpty = true;
         this.piece = null;
+        this.landMine = false;
+        this.revealed = false;
     }
 
     //getters
+    //Board Square Modification
+    public boolean isLandMine(){return this.landMine;}
+    public void setLandMine(){this.landMine = true;}
+    public boolean isRevealed(){return this.revealed;}
+    public void setRevealed(){this.revealed = true;}
+
     public boolean isEmpty() {
         return isEmpty;
     }
@@ -52,6 +62,7 @@ public class BoardSquare {
      */
     @Override
     public String toString(){
-        return !isEmpty() ? "-"+this.piece.toString()+"-" : "-------";
+        return !isEmpty() && !isLandMine() ? "-"+this.piece.toString()+"-" :
+                isRevealed() && isLandMine() ? "XXXXXXX" : "-------";
     }
 }

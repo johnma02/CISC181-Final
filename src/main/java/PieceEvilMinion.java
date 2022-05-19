@@ -37,7 +37,7 @@ public class PieceEvilMinion extends PieceMinion implements Attacker, Recruiter,
 
     @Override
     public boolean validAttackPath(int row1, int column1, int row2, int column2) {
-        return true;
+        return this.validMovePath(row1, column1, row2, column2);
     }
 
     public void setNumTimesSpawned(int numTimesSpawned) {
@@ -92,8 +92,4 @@ public class PieceEvilMinion extends PieceMinion implements Attacker, Recruiter,
      * @param toSquareCol fin col
      * @return boolean representing if move is legal
      */
-    @Override
-    public boolean validMovePath(int fromSquareRow, int fromSquareCol, int toSquareRow, int toSquareCol) {
-        return true;
-    }
 }

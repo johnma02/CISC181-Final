@@ -11,20 +11,35 @@ public class Controller {
     public Controller(){
         this.game = setUpGameModel();
         this.textView = new TextView();
+        game.getGameBoard().plantMine();
         textView.updateView(this.game);
     }
 
     public void playGame() {
+        //New Objective Modification
+        System.out.println("A landmine was planted!");
         while(!game.isGameEnded()) {
             textView.getNextPlayersAction(this.game); //get action
             if (!Rules.checkValidAction(game, textView.getRow1(), textView.getColumn1(),
                     textView.getRow2(), textView.getColumn2(), textView.getAction())) { //check validity
                 System.out.println("Invalid Move!");
-                textView.updateView(this.game); //give player a new view before retrieving another move
             } else {
                 carryOutAction(textView.getRow1(), textView.getColumn1(), textView.getRow2(), textView.getColumn2(), textView.getAction());
-                textView.updateView(this.game);
+                //New Objective Modification
+                if(game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].isLandMine()
+                    && !game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].isEmpty()){
+                    game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].removePiece();
+                    game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].setRevealed();
+                    System.out.println("Your Piece was destroyed by a Land Mine!");
                 }
+            }
+
+            //New Objective Modification
+            if(game.getRound() >= 5){
+                System.out.println("A landmine was planted!");
+                game.getGameBoard().plantMine();
+            }
+            textView.updateView(this.game);
             }
         if (game.isAWinner()) {
             textView.printEndOfGameMessage(this.game); //prints winner
@@ -51,6 +66,9 @@ public class Controller {
                 ActionSpawn actionSpawn = new ActionSpawn(this.game, row1, column1, row2, column2);
                 actionSpawn.performAction();
                 break;
+            case 'H':
+                ActionHastyStrike actionHastyStrike = new ActionHastyStrike(this.game, row1, column1, row2, column2);
+                actionHastyStrike.performAction();
         }
     }
     public GameS22 setUpGameModel(){
@@ -62,10 +80,12 @@ public class Controller {
                 0,0,false,true));
         piecesTeamA.add(new PieceBuzz('B',"Blu",2,1,
                 true,false,true));
-        piecesTeamA.add(new PieceBlueHen('H',"Blu",3,
+        piecesTeamA.add(new PieceBlueHen('H',"Blu",2,
                 9,false,true));
         piecesTeamA.add(new PieceEvilMinion('E',"Blu",1,
-                1,4,false, true));
+                0,0,false, true));
+        piecesTeamA.add(new PieceGoblin('G',"Blu", false, false, 0,
+                0, true));
         // Create a team object
         Team teamA = new Team("Blu",piecesTeamA);
 
@@ -80,6 +100,8 @@ public class Controller {
                 true,false,true));
         piecesTeamB.add(new PieceEvilMinion('E',"Red",1,
                 1,4,false, true));
+        piecesTeamA.add(new PieceGoblin('G',"Blu", false, false, 0,
+                0, true));
         // Create a team object
         Team teamB = new Team("Red",piecesTeamB);
 

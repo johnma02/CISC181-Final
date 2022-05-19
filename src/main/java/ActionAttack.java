@@ -14,8 +14,7 @@ public class ActionAttack extends Action{
         if(game.getBoardSquares()[row1][column1].getPiece() instanceof PieceEvilMinion //Attacker is PieceEvilMinion
         && game.getBoardSquares()[row2][column2].getPiece().getTeamColor().equals(game.getCurrentTeam().getTeamColor()) //same team
         && game.getBoardSquares()[row2][column2].getPiece() instanceof PieceMinion
-        && !(game.getBoardSquares()[row2][column2].getPiece() instanceof PieceEvilMinion)){ //Attacked piece is PieceMinion
-
+        && !(game.getBoardSquares()[row2][column2].getPiece() instanceof PieceEvilMinion)){ //Attacked piece is PieceMinio
             PieceEvilMinion spawnedEvilMinion = new PieceEvilMinion( //Create a new PieceEvilMinion
                     Character.toLowerCase(game.getBoardSquares()[row1][column1].getPiece().getSymbol()),
                     game.getCurrentTeam().getTeamColor(), 1, 0,
@@ -26,16 +25,30 @@ public class ActionAttack extends Action{
             game.getCurrentTeam().removePieceFromTeam(game.getBoardSquares()[row2][column2].getPiece());
             game.getBoardSquares()[row2][column2].removePiece();
             game.getBoardSquares()[row2][column2].setPiece(spawnedEvilMinion);
-            game.changeTurn();
+            int numAttacks = ((PieceEvilMinion) game.getBoardSquares()[row2][column2].getPiece()).getNumAttacks();
+            ((PieceEvilMinion) game.getBoardSquares()[row2][column2].getPiece()).setNumAttacks(numAttacks+1);
         }
         else{
             //Encompasses every other piece in game.
+            if(game.getBoardSquares()[row1][column1].getPiece() instanceof PieceGoblin){
+                ((PieceGoblin) game.getBoardSquares()[row1][column1].getPiece()).setPieceStolen(
+                        game.getBoardSquares()[row2][column2].getPiece());
+                ((PieceGoblin) game.getBoardSquares()[row1][column1].getPiece()).getPieceStolen().setTeamColor(
+                        game.getCurrentTeam().getTeamColor());
+            }
             game.getBoardSquares()[row1][column1].getPiece().speak();
             game.getOpponentTeam().removePieceFromTeam(game.getBoardSquares()[row2][column2].getPiece());
             game.getBoardSquares()[row2][column2].removePiece();
             game.getBoardSquares()[row2][column2].setPiece(game.getBoardSquares()[row1][column1].getPiece());
             game.getBoardSquares()[row1][column1].removePiece();
-            game.changeTurn();
+            int numAttacks = ((Attacker) game.getBoardSquares()[row2][column2].getPiece()).getNumAttacks();
+            ((Attacker) game.getBoardSquares()[row2][column2].getPiece()).setNumAttacks(numAttacks+1);
         }
+
+        game.changeTurn();
+
+        //New Objective Modification
+        int currRound = game.getRound();
+        game.setRound(currRound+1);
     }
 }

@@ -13,6 +13,12 @@ public class ActionRecruit extends Action{
         game.getBoardSquares()[row1][column1].getPiece().speak();
         game.getOpponentTeam().removePieceFromTeam(game.getBoardSquares()[row2][column2].getPiece());
         game.getCurrentTeam().addPieceToTeam(game.getBoardSquares()[row2][column2].getPiece()); //take a piece from the enemy
+        int numRecruits = ((Recruiter) game.getBoardSquares()[row1][column1].getPiece()).getNumRecruits();
+        ((Recruiter) game.getBoardSquares()[row1][column1].getPiece()).setNumRecruits(numRecruits+1);
         game.changeTurn();
+
+        //New Objective Modification
+        int currRound = game.getRound();
+        game.setRound(currRound+1);
     }
 }

@@ -33,11 +33,7 @@ public class Rules {
 
         if(action == 'M'){
             if(!nextEmpty){return false;} //cannot move to filled spot
-            boolean validMove = false; //Now we make sure that each piece has a valid move path
-            if(initial instanceof PieceMinion){validMove = ((PieceMinion) initial).validMovePath(row1, column1, row2, column2);}
-            else if(initial instanceof PieceBlueHen){validMove = ((PieceBlueHen) initial).validMovePath(row1, column1, row2, column2);}
-            else if(initial instanceof PieceBuzz){validMove = ((PieceBuzz) initial).validMovePath(row1, column1, row2, column2);}
-            return validMove;
+            return initial.validMovePath(row1,column1,row2,column2);
         }
         else if(action == 'S') {
             boolean validSpawn = false;
@@ -51,6 +47,10 @@ public class Rules {
             else if (initial instanceof PieceBlueHen) {
                 validSpawn = ((PieceBlueHen) initial).canSpawn() &&
                         ((PieceBlueHen) initial).validSpawnPath(row1, column1, row2, column2);
+            }
+            else if (initial instanceof Spawner){
+                validSpawn = ((Spawner) initial).canSpawn() && ((Spawner) initial).validSpawnPath(row1, column1,
+                        row2, column2);
             }
             return validSpawn;
         }
@@ -67,6 +67,7 @@ public class Rules {
             }
             return validRecruit;
         }
+
         else if(action == 'A'){
             //We DO NOT check for enemy, because certain pieces can attack allies
             boolean validAttack = false;
@@ -90,7 +91,21 @@ public class Rules {
             else if(initial instanceof PieceBlueHen){
                 validAttack = isEnemy && ((PieceBlueHen) initial).validAttackPath(row1, column1, row2, column2);
             }
+            //New Rule Modification
+            else if(initial instanceof Attacker){
+                validAttack = isEnemy && ((Attacker) initial).validAttackPath(row1, column1, row2, column2);
+            }
+
             return validAttack;
+        }
+        else if(action == 'H'){
+            boolean canDoubleAttack = false;
+            if(initial instanceof Rogue){
+                canDoubleAttack = ((Rogue) initial).canDoubleAttack() && isEnemy && ((Rogue) initial).validAttackPath(
+                        row1, column1, row2, column2);
+
+            }
+            return canDoubleAttack;
         }
         else{
             //not a move

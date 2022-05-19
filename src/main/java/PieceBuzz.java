@@ -46,7 +46,14 @@ public class PieceBuzz extends Piece implements Attacker{
 
     @Override
     public boolean validAttackPath(int row1, int column1, int row2, int column2) {
-        return true;
+        boolean validAttack = false;
+        if(row1 == row2){
+            validAttack = true;
+        }
+        else if(Math.abs(row2-row1) == 2 && column1 == column2){
+            validAttack = true;
+        }
+        return validAttack;
     }
 
     //updates numTimesBeenAttacked and sets workingLaser to false
@@ -60,6 +67,11 @@ public class PieceBuzz extends Piece implements Attacker{
     @Override
     public void speak(){
         System.out.println("To Infinity and Beyond!");
+    }
+
+    @Override
+    public Piece spawn() {
+        return null;
     }
 
     /**
@@ -76,16 +88,6 @@ public class PieceBuzz extends Piece implements Attacker{
         // You will implement this method in a later step
         // each Piece will have a different valid path
         return true;
-    }
-
-    //see Piece.java for formal definition, PieceBuzz cannot spawn
-    @Override
-    public PieceBuzz spawn(){
-        return null;
-    }
-    //PieceBuzz cannot spawn
-    public boolean canSpawn(){
-        return false;
     }
 
 }

@@ -76,7 +76,13 @@ public class GameBoard {
         }
         return this.squares[row][column];
     }
-
+    public void plantMine(){
+        BoardSquare mine = findRandomEmptySpace();
+        while(mine.isLandMine()){
+            mine = findRandomEmptySpace();
+        }
+        mine.setLandMine();
+    }
     /**
      * overrides Object.toString
      * @return a string representing the game baord

@@ -40,10 +40,11 @@ public class TextView {
      */
     public static char getUsersNextActionType(Scanner scnr) {
         String pMove = "C";
-        String moveList = "AMRSamrs";
+        String moveList = "AMRSHamrsh";
         char tempMove = 0;
         while (!moveList.contains(pMove)) {
-            System.out.print("Enter your next move: \nA[Attack]\nM[Move]\nR[Recruit]\nS[Spawn]\n");
+            //New Action Modification
+            System.out.print("Enter your next move: \nA[Attack]\nM[Move]\nR[Recruit]\nS[Spawn]\nH[Hasty Strike]\n");
             tempMove = scnr.next().toUpperCase().charAt(0);
             pMove = "" + tempMove;
             if(!moveList.contains((pMove))){System.out.print("Invalid move -- ");}
@@ -84,6 +85,7 @@ public class TextView {
 
 
     public void updateView(GameS22 game){
+        System.out.println("Round: "+ String.valueOf(game.getRound()));
         System.out.println(game);
     }
 

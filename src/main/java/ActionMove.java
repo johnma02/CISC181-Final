@@ -14,5 +14,10 @@ public class ActionMove extends Action{
         game.getBoardSquares()[row2][column2].setPiece(game.getBoardSquares()[row1][column1].getPiece());
         game.getBoardSquares()[row1][column1].removePiece(); //move
         game.changeTurn();
+
+
+        //New Objective Modification
+        int currRound = game.getRound();
+        game.setRound(currRound+1);
     }
 }

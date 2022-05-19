@@ -6,5 +6,9 @@ public interface Spawner {
      */
 
     // Created purely to keep in line with OOP principles
-    public abstract boolean validSpawnPath(int row1, int column1, int row2, int column2);
+    int getNumTimesSpawned();
+    void setNumTimesSpawned(int numTimesSpawned);
+    boolean canSpawn();
+
+    boolean validSpawnPath(int row1, int column1, int row2, int column2);
 }

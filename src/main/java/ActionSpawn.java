@@ -14,6 +14,16 @@ public class ActionSpawn extends Action{
         Piece spawnedPiece = game.getBoardSquares()[row1][column1].getPiece().spawn(); //create new spawned piece
         game.getCurrentTeam().addPieceToTeam(spawnedPiece);
         game.getBoardSquares()[row2][column2].setPiece(spawnedPiece);
+        int numTimesSpawned = ((Spawner) game.getBoardSquares()[row1][column1].getPiece()).getNumTimesSpawned();
+        ((Spawner) game.getBoardSquares()[row1][column1].getPiece()).setNumTimesSpawned(numTimesSpawned+1);
+        //New Action Modification
+        if(game.getBoardSquares()[row1][column1].getPiece() instanceof PieceGoblin){
+            ((PieceGoblin) game.getBoardSquares()[row1][column1].getPiece()).setPieceStolen(null);
+        }
         game.changeTurn();
+
+        //New Objective Modification
+        int currRound = game.getRound();
+        game.setRound(currRound+1);
     }
 }

@@ -4,9 +4,15 @@ public class GameS22 extends Game{
      * @author Jonathan Ma
      * @version 1.0
      */
+    //New Objective Modification
+    private int roundCounter;
     public GameS22(int rows, int columns, Team team1, Team team2){
         super(rows, columns, team1, team2);
+        this.roundCounter = 1;
     }
+
+    public int getRound(){return this.roundCounter;}
+    public void setRound(int round){this.roundCounter = round;}
 
     @Override
     public boolean isAWinner() {

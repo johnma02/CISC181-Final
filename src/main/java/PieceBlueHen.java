@@ -9,7 +9,7 @@ public class PieceBlueHen extends Piece implements Attacker, Recruiter, Spawner{
     private int numAttacks;
     private int numRecruits;
     private boolean flies;
-
+    private int numTimesSpawned = 0;
     //static variable representing the number of times PieceBlueHen can attack
     public static final int MAX_NUM_ATTACKS = 3;
 
@@ -49,8 +49,16 @@ public class PieceBlueHen extends Piece implements Attacker, Recruiter, Spawner{
     }
 
     @Override
-    public boolean validAttackPath(int row1, int column1, int row2, int column2) {
+    public boolean canAttack() {
         return true;
+    }
+
+    @Override
+    public boolean validAttackPath(int row1, int column1, int row2, int column2) {
+        if(canFly()){return true;}
+        else{
+            return Math.abs(row2 - row1) == 1 && column1 == column2;
+        }
     }
 
     public void setNumRecruits(int numRecruits)    {
@@ -59,7 +67,10 @@ public class PieceBlueHen extends Piece implements Attacker, Recruiter, Spawner{
 
     @Override
     public boolean validRecruitPath(int row1, int row2, int column1, int column2) {
-        return true;
+        if(canFly()){return true;}
+        else{
+            return Math.abs(column2 - column1) == 1 && row1 == row2;
+        }
     }
 
 
@@ -77,18 +88,19 @@ public class PieceBlueHen extends Piece implements Attacker, Recruiter, Spawner{
 
     /**
      * see piece.java for formal definition
-     * @param fromSquareRow starting row
-     * @param fromSquareCol starting column
-     * @param toSquareRow ending row
-     * @param toSquareCol ending column
+     * @param row1 starting row
+     * @param col1 starting column
+     * @param row2 ending row
+     * @param col2 ending column
      * @return boolean representing whether move is legal
      */
     @Override
-    public boolean validMovePath(int fromSquareRow, int fromSquareCol,
-                                 int toSquareRow, int toSquareCol) {
-        // You will implement this method in a later step
-        // each Piece will have a different valid path
-        return true;
+    public boolean validMovePath(int row1, int col1,
+                                 int row2, int col2) {
+        if(canFly()){return true;}
+        else{
+            return Math.abs(row2 - row1) <= 1 && Math.abs(col2 - col1) <= 1;
+        }
     }
 
     /**
@@ -98,11 +110,9 @@ public class PieceBlueHen extends Piece implements Attacker, Recruiter, Spawner{
      */
     @Override
     public PieceBlueHen spawn()    {
-        PieceBlueHen copyHen =
-                new PieceBlueHen(Character.toLowerCase(this.symbol),
-                        this.teamColor,this.numAttacks,this.numRecruits,
-                        false,false);
-        return copyHen;
+        return new PieceBlueHen(Character.toLowerCase(this.symbol),
+                this.teamColor, this.numAttacks, this.numRecruits,
+                false,false);
     }
 
     //PieceBlueHen can always spawn if it is original
@@ -111,7 +121,20 @@ public class PieceBlueHen extends Piece implements Attacker, Recruiter, Spawner{
     }
 
     @Override
+    public int getNumTimesSpawned() {
+        return this.numTimesSpawned;
+    }
+
+    @Override
+    public void setNumTimesSpawned(int numTimesSpawned) {
+        this.numTimesSpawned = numTimesSpawned;
+    }
+
+    @Override
     public boolean validSpawnPath(int row1, int column1, int row2, int column2) {
-        return true;
+        if(canFly()){return true;}
+        else {
+            return Math.abs(row2 - row1) == 1 && Math.abs(column2 - column1) == 1;
+        }
     }
 }

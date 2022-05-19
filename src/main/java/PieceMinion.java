@@ -28,14 +28,20 @@ public class PieceMinion extends Piece implements Recruiter, Spawner{
     //getters
     public int getNumRecruits() {return numRecruits;}
     public int getNumTimesSpawned() {return numTimesSpawned;}
+
+    @Override
+    public void setNumTimesSpawned(int numTimesSpawned) {
+        this.numTimesSpawned = numTimesSpawned;
+    }
+
     //setters
     public void setNumRecruits(int numRecruits) {
         this.numRecruits = numRecruits;
     }
 
     @Override
-    public boolean validRecruitPath(int row1, int row2, int column1, int column2) {
-        return true;
+    public boolean validRecruitPath(int row1, int col1, int row2, int col2) {
+        return this.validMovePath(row1, col1, row2, col2);
     }
 
     //see Piece.java for formal definition: an instance of PieceMinion will print "Bello!" to console when speak() is called
@@ -46,11 +52,16 @@ public class PieceMinion extends Piece implements Recruiter, Spawner{
 
     //see Piece.java for formal definition
     @Override
-    public boolean validMovePath(int fromSquareRow, int fromSquareCol,
-                                 int toSquareRow, int toSquareCol) {
-        // You will implement this method in a later step
-        // each Piece will have a different valid path
-        return true;
+    public boolean validMovePath(int row1, int col1,
+                                 int row2, int col2) {
+        boolean validMove = false;
+        if(col1 == col2){
+            validMove = true;
+        }
+        else if(Math.abs(col2 - col1) == 2 && row1 == row2){
+            validMove = true;
+        }
+        return validMove;
     }
 
     /**
@@ -62,7 +73,6 @@ public class PieceMinion extends Piece implements Recruiter, Spawner{
     @Override
     public PieceMinion spawn(){
         if(canSpawn()) {
-            this.numTimesSpawned++;
             return new PieceMinion(Character.toLowerCase(this.symbol),
                     this.teamColor, 1,
                     0,
@@ -84,6 +94,6 @@ public class PieceMinion extends Piece implements Recruiter, Spawner{
 
     @Override
     public boolean validSpawnPath(int row1, int column1, int row2, int column2) {
-        return true;
+        return this.validMovePath(row1, column1, row2, column2);
     }
 }
