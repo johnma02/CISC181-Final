@@ -57,7 +57,7 @@ public class PieceBlueHen extends Piece implements Attacker, Recruiter, Spawner{
     public boolean validAttackPath(int row1, int column1, int row2, int column2) {
         if(canFly()){return true;}
         else{
-            return Math.abs(row2 - row1) == 1 && column1 == column2;
+            return Math.abs(column2 - column1) == 1 && row2 == row1;
         }
     }
 
@@ -66,10 +66,10 @@ public class PieceBlueHen extends Piece implements Attacker, Recruiter, Spawner{
     }
 
     @Override
-    public boolean validRecruitPath(int row1, int row2, int column1, int column2) {
+    public boolean validRecruitPath(int row1, int column1, int row2, int column2) {
         if(canFly()){return true;}
         else{
-            return Math.abs(column2 - column1) == 1 && row1 == row2;
+            return Math.abs(row2 - row1) == 1 && column1 == column2;
         }
     }
 

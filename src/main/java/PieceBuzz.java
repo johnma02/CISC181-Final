@@ -50,7 +50,7 @@ public class PieceBuzz extends Piece implements Attacker{
         if(row1 == row2){
             validAttack = true;
         }
-        else if(Math.abs(row2-row1) == 2 && column1 == column2){
+        else if(Math.abs(row2 - row1) == 2 && column1 == column2){
             validAttack = true;
         }
         return validAttack;

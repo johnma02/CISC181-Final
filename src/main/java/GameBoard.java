@@ -83,6 +83,13 @@ public class GameBoard {
         }
         mine.setLandMine();
     }
+    public void revealMines(){
+        for(int i = 0; i < numRows; i++){
+            for(int j = 0; j < numColumns; j++){
+                squares[i][j].setRevealed();
+            }
+        }
+    }
     /**
      * overrides Object.toString
      * @return a string representing the game baord

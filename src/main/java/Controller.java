@@ -17,8 +17,10 @@ public class Controller {
 
     public void playGame() {
         //New Objective Modification
-        System.out.println("A landmine was planted!");
+        int mineTotal = 1;
+        System.out.println("-- A landmine was planted! --");
         while(!game.isGameEnded()) {
+            int round = game.getRound(); //making sure we only plant mines on DIFFERENT ROUNDS!
             textView.getNextPlayersAction(this.game); //get action
             if (!Rules.checkValidAction(game, textView.getRow1(), textView.getColumn1(),
                     textView.getRow2(), textView.getColumn2(), textView.getAction())) { //check validity
@@ -26,8 +28,11 @@ public class Controller {
             } else {
                 carryOutAction(textView.getRow1(), textView.getColumn1(), textView.getRow2(), textView.getColumn2(), textView.getAction());
                 //New Objective Modification
-                if(game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].isLandMine()
-                    && !game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].isEmpty()){
+                if (game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].isLandMine()
+                        && !game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].isEmpty()) {
+                    game.getOpponentTeam().removePieceFromTeam(
+                    game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].getPiece()
+                    );
                     game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].removePiece();
                     game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].setRevealed();
                     System.out.println("Your Piece was destroyed by a Land Mine!");
@@ -35,16 +40,26 @@ public class Controller {
             }
 
             //New Objective Modification
-            if(game.getRound() >= 5){
-                System.out.println("A landmine was planted!");
-                game.getGameBoard().plantMine();
+            if (game.getRound() >= 5 && round != game.getRound() && mineTotal < 36) {
+                for (int i = 0; i < game.getRound() - 3; i++) {
+                    game.getGameBoard().plantMine();
+                    mineTotal++;
+                }
+                System.out.println("--- " + (game.getRound() - 3) + " landmines were planted! ("
+                        + mineTotal + " mines have been planted in total) ---");
             }
+            else{
+                System.out.println("--- There are "+mineTotal+" landmines on the board ---");
+            }
+
             textView.updateView(this.game);
-            }
+        }
+        game.getGameBoard().revealMines();
+        textView.updateView(this.game);
         if (game.isAWinner()) {
             textView.printEndOfGameMessage(this.game); //prints winner
         } else {
-            System.out.println("It's a tie! The game is over, and there is no winner"); //no winner ? its a tie
+            System.out.println("It's a tie! The game is over, and there is no winner"); //no winner ? it's a tie
         }
     }
 

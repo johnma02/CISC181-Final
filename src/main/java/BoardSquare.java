@@ -17,7 +17,7 @@ public class BoardSquare {
         this.isEmpty = true;
         this.piece = null;
         this.landMine = false;
-        this.revealed = false;
+        this.revealed = true;
     }
 
     //getters

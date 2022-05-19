@@ -21,7 +21,6 @@ public abstract class Game{
     /**
      * initializes the game board for our game. Finds random empty spaces on the game board and inserts each teams' pieces
      * @param numRows
-     * @param numColumns
      */
     private void initializeGameBoard(int numRows, int numColumns){
         this.board = new GameBoard(numRows, numColumns);
