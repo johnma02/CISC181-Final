@@ -40,15 +40,7 @@ public class Rules {
             //next cannot be occupied
             if (!nextEmpty) {return false;}
             //down cast
-            if (initial instanceof PieceMinion) { //PieceEvilMinion extends from PieceMinion, thus we do not need to check for PieceEvilMinion
-                validSpawn = ((PieceMinion) initial).canSpawn() &&
-                        ((PieceMinion) initial).validSpawnPath(row1, column1, row2, column2);
-            }
-            else if (initial instanceof PieceBlueHen) {
-                validSpawn = ((PieceBlueHen) initial).canSpawn() &&
-                        ((PieceBlueHen) initial).validSpawnPath(row1, column1, row2, column2);
-            }
-            else if (initial instanceof Spawner){
+           if (initial instanceof Spawner){
                 validSpawn = ((Spawner) initial).canSpawn() && ((Spawner) initial).validSpawnPath(row1, column1,
                         row2, column2);
             }
@@ -59,11 +51,8 @@ public class Rules {
             //cannot recruit ally -- also checks if next is empty.
             if(!isEnemy){return false;}
             //down casting -- Only PieceBuzz cannot recruit
-            if(initial instanceof PieceMinion){
+            if(initial instanceof Recruiter) {
                 validRecruit = ((PieceMinion) initial).validRecruitPath(row1, column1, row2, column2);
-            }
-            else if (initial instanceof PieceBlueHen){
-                validRecruit = ((PieceBlueHen) initial).validRecruitPath(row1, column1, row2, column2);
             }
             return validRecruit;
         }
@@ -71,11 +60,9 @@ public class Rules {
         else if(action == 'A'){
             //We DO NOT check for enemy, because certain pieces can attack allies
             boolean validAttack = false;
-            if(initial instanceof PieceBuzz){
-                validAttack = ((PieceBuzz) initial).canAttack() && isEnemy &&
-                        ((PieceBuzz) initial).validAttackPath(row1, column1, row2, column2);
-            }
-            else if (initial instanceof PieceEvilMinion) {
+
+            //PieceEvilMinion is special so it gets its own control branch
+            if (initial instanceof PieceEvilMinion) {
                 if(nextEmpty){validAttack = false;}
                 //Needed to ensure that ONLY PieceEvilMinion can attack an allied PieceMinion and ONLY PieceMinion
                 else if(nextPiece.getTeamColor().equals(game.getCurrentTeam().getTeamColor()) && nextPiece instanceof PieceMinion
@@ -88,9 +75,6 @@ public class Rules {
                             ((PieceEvilMinion) initial).validAttackPath(row1, column1, row2, column2);
                 }
             }
-            else if(initial instanceof PieceBlueHen){
-                validAttack = isEnemy && ((PieceBlueHen) initial).validAttackPath(row1, column1, row2, column2);
-            }
             //New Rule Modification
             else if(initial instanceof Attacker){
                 validAttack = isEnemy && ((Attacker) initial).validAttackPath(row1, column1, row2, column2) &&
@@ -99,7 +83,7 @@ public class Rules {
 
             return validAttack;
         }
-        //New Action Modification
+        //New Action Modification -- basically the same as attacker.
         else if(action == 'H'){
             boolean canDoubleAttack = false;
             if(initial instanceof Rogue){

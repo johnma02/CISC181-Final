@@ -18,16 +18,18 @@ public class PieceGoblin extends Piece implements Spawner, Rogue{
         this.numAttacks = numAttacks;
         this.numTimesSpawned = numTimesSpawned;
         this.canDoubleAttack = canDoubleAttack;
-        this.PieceStolen = null;
+        this.PieceStolen = null; //starts with no piece
     }
 
     //PieceGoblin steals pieces to spawn later.
     public Piece getPieceStolen(){
         return this.PieceStolen;
     }
+    //called after an attack
     public void setPieceStolen(Piece PieceStolen){
         this.PieceStolen = PieceStolen;
     }
+    //shouldnt matter, piecegoblin has no max attack cap
     @Override
     public int getNumAttacks() {
         return this.numAttacks;
@@ -50,6 +52,7 @@ public class PieceGoblin extends Piece implements Spawner, Rogue{
         return true;
     }
 
+    //no spawn cap
     @Override
     public int getNumTimesSpawned() {
         return this.numTimesSpawned;
@@ -72,7 +75,7 @@ public class PieceGoblin extends Piece implements Spawner, Rogue{
         return Math.abs(row2 - row1) <= 1 && Math.abs(column2 - column1) <= 1;
     }
 
-    @Override
+    @Override                               //I mean what else would a goblin say
     public void speak() {
         System.out.println("Nyeh-he-he-heh!");
     }
@@ -84,7 +87,7 @@ public class PieceGoblin extends Piece implements Spawner, Rogue{
             return this.PieceStolen;
         }
         else{
-            return null;
+            return null; //shouldn't matter, but for legacy code sake it is included
         }
     }
 
@@ -94,6 +97,7 @@ public class PieceGoblin extends Piece implements Spawner, Rogue{
     }
 
 
+    //should only be used to set to false.
     @Override
     public void setDoubleAttack(boolean canDoubleAttack) {
         this.canDoubleAttack = canDoubleAttack;

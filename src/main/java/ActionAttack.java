@@ -25,11 +25,13 @@ public class ActionAttack extends Action{
             game.getCurrentTeam().removePieceFromTeam(game.getBoardSquares()[row2][column2].getPiece());
             game.getBoardSquares()[row2][column2].removePiece();
             game.getBoardSquares()[row2][column2].setPiece(spawnedEvilMinion);
+
             int numAttacks = ((PieceEvilMinion) game.getBoardSquares()[row2][column2].getPiece()).getNumAttacks();
             ((PieceEvilMinion) game.getBoardSquares()[row2][column2].getPiece()).setNumAttacks(numAttacks+1);
         }
         else{
             //Encompasses every other piece in game.
+            //New Piece Modification -- PieceGoblin steals pieces to spawn later
             if(game.getBoardSquares()[row1][column1].getPiece() instanceof PieceGoblin){
                 ((PieceGoblin) game.getBoardSquares()[row1][column1].getPiece()).setPieceStolen(
                         game.getBoardSquares()[row2][column2].getPiece());
@@ -41,6 +43,7 @@ public class ActionAttack extends Action{
             game.getBoardSquares()[row2][column2].removePiece();
             game.getBoardSquares()[row2][column2].setPiece(game.getBoardSquares()[row1][column1].getPiece());
             game.getBoardSquares()[row1][column1].removePiece();
+
             int numAttacks = ((Attacker) game.getBoardSquares()[row2][column2].getPiece()).getNumAttacks();
             ((Attacker) game.getBoardSquares()[row2][column2].getPiece()).setNumAttacks(numAttacks+1);
         }

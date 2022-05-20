@@ -46,7 +46,7 @@ public class Controller {
                 for (int i = 0; i < game.getRound() - 3; i++) {
                     game.getGameBoard().plantMine();
                     mineTotal++;
-                }
+                } //displays message to user telling how many land mines are planted and how many populate the board
                 System.out.println("--- " + (game.getRound() - 3) + " landmines were planted! ("
                         + mineTotal + " mines have been planted in total) ---");
             }

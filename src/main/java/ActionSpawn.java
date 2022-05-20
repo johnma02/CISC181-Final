@@ -17,7 +17,7 @@ public class ActionSpawn extends Action{
         int numTimesSpawned = ((Spawner) game.getBoardSquares()[row1][column1].getPiece()).getNumTimesSpawned();
         ((Spawner) game.getBoardSquares()[row1][column1].getPiece()).setNumTimesSpawned(numTimesSpawned+1);
         //New Action Modification
-        //offloads the piece stolen
+        //offloads the piece PieceGoblin has stolen
         if(game.getBoardSquares()[row1][column1].getPiece() instanceof PieceGoblin){
             ((PieceGoblin) game.getBoardSquares()[row1][column1].getPiece()).setPieceStolen(null);
         }

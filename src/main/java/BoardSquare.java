@@ -56,6 +56,7 @@ public class BoardSquare {
         return temp;
     }
 
+    //Board Square Modification
     /**
      * Overrides Object.toString()
      * @return string representing this BoardSquare's piece's toString value.

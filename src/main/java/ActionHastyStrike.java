@@ -20,6 +20,7 @@ public class ActionHastyStrike extends Action{
             ((PieceGoblin) game.getBoardSquares()[row1][column1].getPiece()).getPieceStolen().setTeamColor(
                     game.getCurrentTeam().getTeamColor());
         }
+        //attack as normal
         game.getBoardSquares()[row1][column1].getPiece().speak();
         game.getOpponentTeam().removePieceFromTeam(game.getBoardSquares()[row2][column2].getPiece());
         game.getBoardSquares()[row2][column2].removePiece();
