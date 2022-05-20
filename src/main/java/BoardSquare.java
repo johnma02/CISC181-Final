@@ -9,22 +9,22 @@ public class BoardSquare {
     private Piece piece; // Piece this BoardSquare holds
     private String squareColor; // Color of this BoardSquare
     //Board Square Modification
-    private boolean landMine;
-    private boolean revealed;
+    private boolean landMine; //land mine
+    private boolean revealed; //whether it is revealed or not
     //constructors
     public BoardSquare(String squareColor){
         this.squareColor = squareColor;
         this.isEmpty = true;
         this.piece = null;
         this.landMine = false;
-        this.revealed = true;
+        this.revealed = false;
     }
 
     //getters
     //Board Square Modification
     public boolean isLandMine(){return this.landMine;}
     public void setLandMine(){this.landMine = true;}
-    public boolean isRevealed(){return this.revealed;}
+    public boolean isRevealed(){return this.revealed;} //land mines are hidden until they are stepped on.
     public void setRevealed(){this.revealed = true;}
 
     public boolean isEmpty() {
@@ -61,7 +61,7 @@ public class BoardSquare {
      * @return string representing this BoardSquare's piece's toString value.
      */
     @Override
-    public String toString(){
+    public String toString(){ //land mines which are revealed are shown as XXXXXXX
         return !isEmpty() && !isLandMine() ? "-"+this.piece.toString()+"-" :
                 isRevealed() && isLandMine() ? "XXXXXXX" : "-------";
     }

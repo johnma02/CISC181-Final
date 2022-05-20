@@ -76,6 +76,9 @@ public class GameBoard {
         }
         return this.squares[row][column];
     }
+
+    //New Objective Modification
+    //plant a mine
     public void plantMine(){
         BoardSquare mine = findRandomEmptySpace();
         while(mine.isLandMine()){
@@ -83,6 +86,8 @@ public class GameBoard {
         }
         mine.setLandMine();
     }
+    //New Objective Modification
+    // reveal mines at the end of the game.
     public void revealMines(){
         for(int i = 0; i < numRows; i++){
             for(int j = 0; j < numColumns; j++){

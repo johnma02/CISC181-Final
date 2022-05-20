@@ -28,6 +28,7 @@ public class Controller {
             } else {
                 carryOutAction(textView.getRow1(), textView.getColumn1(), textView.getRow2(), textView.getColumn2(), textView.getAction());
                 //New Objective Modification
+                //checks if a piece is on a landmine, and destroys it if so.
                 if (game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].isLandMine()
                         && !game.getBoardSquares()[textView.getRow2()][textView.getColumn2()].isEmpty()) {
                     game.getOpponentTeam().removePieceFromTeam(
@@ -40,6 +41,7 @@ public class Controller {
             }
 
             //New Objective Modification
+            //after round 4, land mines will quickly populate the board. Max is 36 for gameplay’s sake.
             if (game.getRound() >= 5 && round != game.getRound() && mineTotal < 36) {
                 for (int i = 0; i < game.getRound() - 3; i++) {
                     game.getGameBoard().plantMine();
@@ -49,7 +51,11 @@ public class Controller {
                         + mineTotal + " mines have been planted in total) ---");
             }
             else{
-                System.out.println("--- There are "+mineTotal+" landmines on the board ---");
+                if (mineTotal == 1) {
+                    System.out.println("--- There is " + mineTotal + " landmine on the board ---");
+                } else {
+                    System.out.println("--- There are " + mineTotal + " landmines on the board ---");
+                }
             }
 
             textView.updateView(this.game);
@@ -81,6 +87,7 @@ public class Controller {
                 ActionSpawn actionSpawn = new ActionSpawn(this.game, row1, column1, row2, column2);
                 actionSpawn.performAction();
                 break;
+                //New Action Modification
             case 'H':
                 ActionHastyStrike actionHastyStrike = new ActionHastyStrike(this.game, row1, column1, row2, column2);
                 actionHastyStrike.performAction();
@@ -115,7 +122,7 @@ public class Controller {
                 true,false,true));
         piecesTeamB.add(new PieceEvilMinion('E',"Red",1,
                 1,4,false, true));
-        piecesTeamA.add(new PieceGoblin('G',"Blu", false, false, 0,
+        piecesTeamB.add(new PieceGoblin('G',"Red", false, false, 0,
                 0, true));
         // Create a team object
         Team teamB = new Team("Red",piecesTeamB);

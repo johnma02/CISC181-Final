@@ -47,7 +47,7 @@ public class ActionAttack extends Action{
 
         game.changeTurn();
 
-        //New Objective Modification
+        //New Objective Modification -- now tracks whenever turn is changed
         int currRound = game.getRound();
         game.setRound(currRound+1);
     }

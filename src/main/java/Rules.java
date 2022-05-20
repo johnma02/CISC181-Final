@@ -93,11 +93,13 @@ public class Rules {
             }
             //New Rule Modification
             else if(initial instanceof Attacker){
-                validAttack = isEnemy && ((Attacker) initial).validAttackPath(row1, column1, row2, column2);
+                validAttack = isEnemy && ((Attacker) initial).validAttackPath(row1, column1, row2, column2) &&
+                        ((Attacker) initial).canAttack();
             }
 
             return validAttack;
         }
+        //New Action Modification
         else if(action == 'H'){
             boolean canDoubleAttack = false;
             if(initial instanceof Rogue){

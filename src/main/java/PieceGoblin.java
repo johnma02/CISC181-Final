@@ -1,5 +1,12 @@
 public class PieceGoblin extends Piece implements Spawner, Rogue{
+    /**
+     * Hasty Strike Action -- hasty strike allows two moves in one turn
+     * @author Jonathan Ma
+     * @version 1.0
+     */
+
     //New Piece Modification
+
     private boolean canDoubleAttack;
     private int numAttacks;
     private int numTimesSpawned;
@@ -14,6 +21,7 @@ public class PieceGoblin extends Piece implements Spawner, Rogue{
         this.PieceStolen = null;
     }
 
+    //PieceGoblin steals pieces to spawn later.
     public Piece getPieceStolen(){
         return this.PieceStolen;
     }
@@ -30,11 +38,13 @@ public class PieceGoblin extends Piece implements Spawner, Rogue{
         this.numAttacks = numAttacks;
     }
 
+    //can only attack if PieceGoblin does not currently have a piece stolen.
     @Override
     public boolean canAttack() {
         return this.PieceStolen == null;
     }
 
+    //move anywhere, attack anywhere
     @Override
     public boolean validAttackPath(int row1, int column1, int row2, int column2) {
         return true;
@@ -50,11 +60,13 @@ public class PieceGoblin extends Piece implements Spawner, Rogue{
         this.numTimesSpawned = numTimesSpawned;
     }
 
+    //can only spawn if it has a stolen piece.
     @Override
     public boolean canSpawn() {
         return this.PieceStolen != null;
     }
 
+    //spawn within radius one
     @Override
     public boolean validSpawnPath(int row1, int column1, int row2, int column2) {
         return Math.abs(row2 - row1) <= 1 && Math.abs(column2 - column1) <= 1;
@@ -65,6 +77,7 @@ public class PieceGoblin extends Piece implements Spawner, Rogue{
         System.out.println("Nyeh-he-he-heh!");
     }
 
+    //spawns the piece stolen
     @Override
     public Piece spawn() {
         if(canSpawn()){
@@ -80,11 +93,13 @@ public class PieceGoblin extends Piece implements Spawner, Rogue{
         return true;
     }
 
+
     @Override
     public void setDoubleAttack(boolean canDoubleAttack) {
         this.canDoubleAttack = canDoubleAttack;
     }
 
+    //can only double attack once per game.
     @Override
     public boolean canDoubleAttack() {
         return this.canDoubleAttack && canAttack();

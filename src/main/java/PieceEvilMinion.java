@@ -74,7 +74,6 @@ public class PieceEvilMinion extends PieceMinion implements Attacker, Recruiter,
     @Override
     public PieceEvilMinion spawn() {
         if(canSpawn()) {
-            this.numTimesSpawned++;
             return new PieceEvilMinion(Character.toLowerCase(this.symbol),
                     this.teamColor, 1, 0,
                     0, false, false);
