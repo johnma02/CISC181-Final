@@ -52,7 +52,7 @@ public class Rules {
             if(!isEnemy){return false;}
             //down casting -- Only PieceBuzz cannot recruit
             if(initial instanceof Recruiter) {
-                validRecruit = ((PieceMinion) initial).validRecruitPath(row1, column1, row2, column2);
+                validRecruit = ((Recruiter) initial).validRecruitPath(row1, column1, row2, column2);
             }
             return validRecruit;
         }
